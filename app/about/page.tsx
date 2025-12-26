@@ -1,4 +1,23 @@
+import { Metadata } from 'next';
 import Link from 'next/link'
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://houseofweaves.com';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'House of Weaves documents the history, craft, and cultural meaning of carpets and textiles from around the world. Based in Marrakech, Morocco.',
+  openGraph: {
+    title: 'About | House of Weaves',
+    description: 'House of Weaves documents the history, craft, and cultural meaning of carpets and textiles from around the world.',
+    url: `${siteUrl}/about`,
+    siteName: 'House of Weaves',
+    locale: 'en_GB',
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${siteUrl}/about`,
+  },
+};
 
 export default function AboutPage() {
   return (

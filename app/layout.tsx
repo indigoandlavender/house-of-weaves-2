@@ -18,17 +18,60 @@ const inter = Inter({
   display: 'swap',
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://houseofweaves.com'
+
 export const metadata: Metadata = {
-  title: 'House of Weaves | A Textile Archive',
-  description: 'An archive of rugs and textiles from around the world. History, provenance, and the stories woven into every thread.',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'House of Weaves | The History and Culture of Carpets and Textiles',
+    template: '%s | House of Weaves',
+  },
+  description: 'Discover the stories behind the world\'s greatest carpets and textiles. From Persian gardens to Navajo looms, explore how cultures transmitted knowledge, identity, and beauty through thread.',
+  keywords: ['carpet history', 'textile history', 'rug history', 'carpet culture', 'weaving traditions', 'oriental rugs', 'Persian carpets', 'textile art'],
+  authors: [{ name: 'J. Ng' }],
+  creator: 'House of Weaves',
+  publisher: 'House of Weaves',
   icons: {
     icon: '/favicon.svg',
   },
   openGraph: {
-    title: 'House of Weaves | A Textile Archive',
-    description: 'An archive of rugs and textiles from around the world.',
+    title: 'House of Weaves | The History and Culture of Carpets and Textiles',
+    description: 'Discover the stories behind the world\'s greatest carpets and textiles. From Persian gardens to Navajo looms, explore how cultures transmitted knowledge, identity, and beauty through thread.',
+    url: siteUrl,
+    siteName: 'House of Weaves',
+    locale: 'en_GB',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'House of Weaves | The History and Culture of Carpets and Textiles',
+    description: 'Discover the stories behind the world\'s greatest carpets and textiles.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
+}
+
+// Organization Schema for site-wide structured data
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'House of Weaves',
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.svg`,
+  description: 'A publication documenting the history, craft, and cultural meaning of carpets and textiles.',
+  sameAs: [],
 }
 
 export default function RootLayout({
@@ -51,6 +94,10 @@ export default function RootLayout({
             gtag('config', 'G-P1CGE62ZD4');
           `}
         </Script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
       </head>
       <body className="font-body antialiased bg-background text-foreground">
         <Header />

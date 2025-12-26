@@ -1,12 +1,15 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { getStories, getStoryBySlug, getStoryImages } from '@/lib/sheets';
 import StoryBody from '@/components/StoryBody';
 import Gallery from '@/components/Gallery';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://houseofweaves.com';
 
 interface PageProps {
   params: { slug: string };
@@ -17,13 +20,48 @@ export async function generateStaticParams() {
   return stories.map((story) => ({ slug: story.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const story = await getStoryBySlug(params.slug);
   if (!story) return { title: 'Story Not Found' };
   
+  const title = `${story.title} | House of Weaves`;
+  const description = story.excerpt || story.subtitle || `Read about ${story.title} in this essay exploring the history and culture of textiles.`;
+  const url = `${siteUrl}/story/${story.slug}`;
+  
   return {
-    title: `${story.title} | House of Weaves`,
-    description: story.excerpt || story.subtitle,
+    title: story.title,
+    description,
+    keywords: story.tags ? story.tags.split(',').map(t => t.trim()) : undefined,
+    authors: story.textBy ? [{ name: story.textBy }] : undefined,
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: 'House of Weaves',
+      locale: 'en_GB',
+      type: 'article',
+      images: story.heroImage ? [
+        {
+          url: story.heroImage,
+          width: 1200,
+          height: 630,
+          alt: story.title,
+        }
+      ] : undefined,
+      article: {
+        authors: story.textBy ? [story.textBy] : undefined,
+        section: story.category || 'Essays',
+      },
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: story.heroImage ? [story.heroImage] : undefined,
+    },
+    alternates: {
+      canonical: url,
+    },
   };
 }
 
@@ -41,8 +79,80 @@ export default async function StoryPage({ params }: PageProps) {
     ? story.sources.split(';;').map((s) => s.trim()).filter(Boolean)
     : [];
 
+  // Calculate word count for schema
+  const wordCount = story.body ? story.body.split(/\s+/).length : 0;
+  
+  // Parse read time for schema (e.g., "14 min read" -> "PT14M")
+  const readTimeMatch = story.readTime?.match(/(\d+)/);
+  const readTimeISO = readTimeMatch ? `PT${readTimeMatch[1]}M` : undefined;
+
+  // Article Schema
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: story.title,
+    description: story.excerpt || story.subtitle,
+    image: story.heroImage || undefined,
+    author: story.textBy ? {
+      '@type': 'Person',
+      name: story.textBy,
+    } : undefined,
+    publisher: {
+      '@type': 'Organization',
+      name: 'House of Weaves',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.svg`,
+      },
+    },
+    datePublished: story.year ? `${story.year}-01-01` : undefined,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/story/${story.slug}`,
+    },
+    articleSection: story.category || 'Essays',
+    wordCount: wordCount > 0 ? wordCount : undefined,
+    timeRequired: readTimeISO,
+  };
+
+  // Breadcrumb Schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Stories',
+        item: `${siteUrl}/stories`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: story.title,
+        item: `${siteUrl}/story/${story.slug}`,
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-background">
+      {/* Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Hero Image */}
       {story.heroImage && (
         <section className="relative w-full h-[60vh] md:h-[70vh]">
@@ -65,6 +175,17 @@ export default async function StoryPage({ params }: PageProps) {
 
       {/* Article Header */}
       <article className="max-w-3xl mx-auto px-6 py-16">
+        {/* Breadcrumb Navigation */}
+        <nav className="text-sm text-foreground/50 mb-8" aria-label="Breadcrumb">
+          <ol className="flex items-center gap-2">
+            <li><Link href="/" className="hover:text-accent transition-colors">Home</Link></li>
+            <li>/</li>
+            <li><Link href="/stories" className="hover:text-accent transition-colors">Stories</Link></li>
+            <li>/</li>
+            <li className="text-foreground/70">{story.title}</li>
+          </ol>
+        </nav>
+
         {/* Meta */}
         <div className="flex items-center gap-3 text-sm text-foreground/50 mb-6">
           {story.category && (

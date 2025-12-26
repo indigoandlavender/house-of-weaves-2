@@ -24,8 +24,8 @@ export default function Home() {
         const sortedStories = (data.stories || []).sort(
           (a: Story, b: Story) => (Number(a.order) || 999) - (Number(b.order) || 999)
         )
-        // Only take first 3 stories for homepage
-        setStories(sortedStories.slice(0, 3))
+        // Take first 6 stories for homepage
+        setStories(sortedStories.slice(0, 6))
         setLoading(false)
       })
       .catch((err) => {
