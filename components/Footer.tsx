@@ -93,11 +93,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-charcoal text-white">
+    <footer className="text-white">
       {/* ════════════════════════════════════════════════════════════════════
-          LEVEL 1: Newsletter
+          LEVEL 1: Newsletter (lightest)
           ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-20 border-b border-white/10">
+      <section className="py-16 md:py-20 bg-[#3a3a3a]">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="max-w-xl">
             <p className="text-meta uppercase tracking-wider text-white/40 mb-4">Newsletter</p>
@@ -134,9 +134,9 @@ export default function Footer() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          LEVEL 2: Navigation Links
+          LEVEL 2: Navigation Links (medium)
           ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-16">
+      <section className="py-12 md:py-16 bg-[#2d2d2d]">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {/* Brand Column */}
@@ -205,9 +205,9 @@ export default function Footer() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          LEVEL 3: Legal + Copyright
+          LEVEL 3: Legal + Copyright (darkest)
           ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-6 border-t border-white/10">
+      <section className="py-6 bg-[#1f1f1f]">
         <div className="max-w-[1400px] mx-auto px-6">
           {/* Legal links row */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-4">
