@@ -40,6 +40,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: 'House of Weaves',
       locale: 'en_GB',
       type: 'article',
+      authors: story.textBy ? [story.textBy] : undefined,
+      section: story.category || 'Essays',
+      publishedTime: story.year ? `${story.year}-01-01` : undefined,
       images: story.heroImage ? [
         {
           url: story.heroImage,
@@ -48,10 +51,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           alt: story.title,
         }
       ] : undefined,
-      article: {
-        authors: story.textBy ? [story.textBy] : undefined,
-        section: story.category || 'Essays',
-      },
     },
     twitter: {
       card: 'summary_large_image',
