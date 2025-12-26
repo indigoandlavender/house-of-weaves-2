@@ -102,10 +102,10 @@ export default function Footer() {
           <div className="max-w-xl">
             <p className="text-meta uppercase tracking-wider text-white/40 mb-4">Newsletter</p>
             <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4">
-              First Access
+              From the Loom
             </h2>
             <p className="text-white/60 mb-8">
-              New collections and maker stories. No spam. Unsubscribe anytime.
+              Occasional notes on textiles, makers, and the stories behind them.
             </p>
             
             {subscribed ? (

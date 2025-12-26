@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import { getPieceBySlug, getPieceImages, getPieces } from '@/lib/sheets'
 
 export const dynamic = 'force-dynamic'
@@ -29,8 +27,6 @@ export default async function PiecePage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-cream">
-      <Header />
-      
       {/* Back Link */}
       <div className="pt-24 md:pt-28">
         <div className="max-w-[1400px] mx-auto px-6">
@@ -221,8 +217,6 @@ export default async function PiecePage({ params }: PageProps) {
           </div>
         </section>
       )}
-
-      <Footer />
     </main>
   )
 }

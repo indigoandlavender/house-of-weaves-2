@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 
 interface Story {
   slug: string
@@ -44,8 +42,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-cream">
-      <Header />
-      
       {/* Hero */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28 border-b border-foreground/10">
         <div className="max-w-[1400px] mx-auto px-6">
@@ -161,8 +157,6 @@ export default function Home() {
           )}
         </div>
       </section>
-
-      <Footer />
     </main>
   )
 }

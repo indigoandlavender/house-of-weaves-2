@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import { getArchivePieces } from '@/lib/sheets'
 
 export const dynamic = 'force-dynamic'
@@ -20,8 +18,6 @@ export default async function ArchivePage() {
 
   return (
     <main className="min-h-screen bg-cream">
-      <Header />
-      
       {/* Hero */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-20 border-b border-foreground/10">
         <div className="max-w-[1400px] mx-auto px-6">
@@ -85,8 +81,6 @@ export default async function ArchivePage() {
           )}
         </div>
       </section>
-
-      <Footer />
     </main>
   )
 }

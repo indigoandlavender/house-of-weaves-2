@@ -1,12 +1,8 @@
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-cream">
-      <Header />
-      
       {/* Hero */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-20 border-b border-foreground/10">
         <div className="max-w-[1400px] mx-auto px-6">
@@ -81,8 +77,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   )
 }

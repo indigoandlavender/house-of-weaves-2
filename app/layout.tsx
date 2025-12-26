@@ -21,6 +21,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'House of Weaves | A Textile Archive',
   description: 'An archive of rugs and textiles from around the world. History, provenance, and the stories woven into every thread.',
+  icons: {
+    icon: '/favicon.svg',
+  },
   openGraph: {
     title: 'House of Weaves | A Textile Archive',
     description: 'An archive of rugs and textiles from around the world.',

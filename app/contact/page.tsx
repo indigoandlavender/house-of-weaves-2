@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 export default function ContactPage() {
   const searchParams = useSearchParams();
@@ -58,8 +56,6 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-cream">
-      <Header />
-
       <section className="pt-32 pb-20 md:pt-40 md:pb-28">
         <div className="max-w-[1000px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
@@ -190,8 +186,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   );
 }
