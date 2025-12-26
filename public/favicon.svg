@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#f9f6f1"/>
+  <!-- Woven pattern -->
+  <g fill="#8b4513">
+    <!-- Horizontal threads -->
+    <rect x="4" y="6" width="24" height="2"/>
+    <rect x="4" y="12" width="24" height="2"/>
+    <rect x="4" y="18" width="24" height="2"/>
+    <rect x="4" y="24" width="24" height="2"/>
+  </g>
+  <g fill="#1a1a1a">
+    <!-- Vertical threads (woven effect) -->
+    <rect x="6" y="4" width="2" height="6"/>
+    <rect x="6" y="14" width="2" height="6"/>
+    <rect x="6" y="22" width="2" height="6"/>
+    
+    <rect x="12" y="8" width="2" height="6"/>
+    <rect x="12" y="18" width="2" height="6"/>
+    
+    <rect x="18" y="4" width="2" height="6"/>
+    <rect x="18" y="14" width="2" height="6"/>
+    <rect x="18" y="22" width="2" height="6"/>
+    
+    <rect x="24" y="8" width="2" height="6"/>
+    <rect x="24" y="18" width="2" height="6"/>
+  </g>
+</svg>
