@@ -26,28 +26,10 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-white/70">
               <li>
-                <Link href="/archive" className="hover:text-white transition-colors">
-                  Archive
+                <Link href="/stories" className="hover:text-white transition-colors">
+                  Stories
                 </Link>
               </li>
-              <li>
-                <Link href="/collection" className="hover:text-white transition-colors">
-                  Collection
-                </Link>
-              </li>
-              <li>
-                <Link href="/essays" className="hover:text-white transition-colors">
-                  Essays
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-medium text-sm uppercase tracking-wider mb-4 text-white/40">
-              Information
-            </h4>
-            <ul className="space-y-2 text-white/70">
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
                   About
@@ -60,26 +42,40 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
+          <div>
+            <h4 className="font-medium text-sm uppercase tracking-wider mb-4 text-white/40">
+              Legal
+            </h4>
+            <ul className="space-y-2 text-white/70">
+              <li>
+                <Link href="/privacy" className="hover:text-white transition-colors">
+                  Privacy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-white transition-colors">
+                  Terms
+                </Link>
+              </li>
+              <li>
+                <Link href="/disclaimer" className="hover:text-white transition-colors">
+                  Disclaimer
+                </Link>
+              </li>
+              <li>
+                <Link href="/intellectual-property" className="hover:text-white transition-colors">
+                  Intellectual Property
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
       <div className="border-t border-white/10">
-        <div className="max-w-[1400px] mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/40">
+        <div className="max-w-[1400px] mx-auto px-6 py-4 text-sm text-white/40 text-center">
           <p>© {currentYear} House of Weaves</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white/70 transition-colors">
-              Privacy
-            </Link>
-            <Link href="/terms" className="hover:text-white/70 transition-colors">
-              Terms
-            </Link>
-            <Link href="/disclaimer" className="hover:text-white/70 transition-colors">
-              Disclaimer
-            </Link>
-            <Link href="/intellectual-property" className="hover:text-white/70 transition-colors">
-              IP
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

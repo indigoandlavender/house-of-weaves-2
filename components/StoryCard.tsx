@@ -10,7 +10,7 @@ export default function StoryCard({ story }: StoryCardProps) {
   return (
     <Link href={`/story/${story.slug}`} className="group block">
       {/* Image */}
-      <div className="relative aspect-[4/3] mb-4 overflow-hidden bg-foreground/5">
+      <div className="relative aspect-[4/5] mb-4 overflow-hidden bg-foreground/5">
         {story.heroImage ? (
           <Image
             src={story.heroImage}

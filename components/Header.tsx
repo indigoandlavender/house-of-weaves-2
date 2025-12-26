@@ -42,22 +42,6 @@ export default function Header({ transparent = false }: HeaderProps) {
 
         <nav className="hidden md:flex items-center gap-8">
           <Link 
-            href="/archive" 
-            className={`text-sm tracking-wide transition-colors ${
-              isTransparent ? 'text-white/90 hover:text-white' : 'text-foreground/70 hover:text-foreground'
-            }`}
-          >
-            Archive
-          </Link>
-          <Link 
-            href="/collection" 
-            className={`text-sm tracking-wide transition-colors ${
-              isTransparent ? 'text-white/90 hover:text-white' : 'text-foreground/70 hover:text-foreground'
-            }`}
-          >
-            Collection
-          </Link>
-          <Link 
             href="/stories" 
             className={`text-sm tracking-wide transition-colors ${
               isTransparent ? 'text-white/90 hover:text-white' : 'text-foreground/70 hover:text-foreground'
@@ -90,20 +74,6 @@ export default function Header({ transparent = false }: HeaderProps) {
 
       {menuOpen && (
         <nav className="md:hidden bg-cream border-t border-foreground/10 px-6 py-6 space-y-4">
-          <Link 
-            href="/archive" 
-            className="block text-lg"
-            onClick={() => setMenuOpen(false)}
-          >
-            Archive
-          </Link>
-          <Link 
-            href="/collection" 
-            className="block text-lg"
-            onClick={() => setMenuOpen(false)}
-          >
-            Collection
-          </Link>
           <Link 
             href="/stories" 
             className="block text-lg"
