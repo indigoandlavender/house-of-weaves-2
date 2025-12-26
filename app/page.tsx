@@ -1,21 +1,46 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { getStories } from '@/lib/sheets'
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+interface Story {
+  slug: string
+  title: string
+  subtitle?: string
+  category?: string
+  heroImage?: string
+  order?: string
+}
 
-export default async function Home() {
-  const stories = await getStories()
-  const featuredStories = stories
-    .filter((s) => {
-      const f = String(s.featured || '').toLowerCase().trim()
-      return f === 'true' || f === 'yes' || f === '1'
-    })
-    .sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999))
-    .slice(0, 3)
+export default function Home() {
+  const [stories, setStories] = useState<Story[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/api/stories')
+      .then((r) => r.json())
+      .then((data) => {
+        const sortedStories = (data.stories || []).sort(
+          (a: Story, b: Story) => (Number(a.order) || 999) - (Number(b.order) || 999)
+        )
+        setStories(sortedStories)
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.error(err)
+        setLoading(false)
+      })
+  }, [])
+
+  const scrollCarousel = (direction: 'left' | 'right') => {
+    const container = document.getElementById('stories-carousel')
+    if (container) {
+      container.scrollBy({ left: direction === 'left' ? -320 : 320, behavior: 'smooth' })
+    }
+  }
 
   return (
     <main className="min-h-screen bg-cream">
@@ -48,88 +73,92 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Stories */}
-      {featuredStories.length > 0 && (
-        <section className="py-20 md:py-28">
-          <div className="max-w-[1400px] mx-auto px-6">
-            <div className="flex justify-between items-end mb-12">
-              <div>
-                <p className="text-meta uppercase tracking-wider text-foreground/50 mb-2">Reading</p>
-                <h2 className="font-display text-title font-semibold">Stories</h2>
-              </div>
-              <Link 
-                href="/stories" 
-                className="text-sm text-accent hover:underline underline-offset-4"
-              >
-                All stories →
-              </Link>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featuredStories.map((story) => (
-                <Link 
-                  key={story.slug} 
-                  href={`/story/${story.slug}`}
-                  className="group"
-                >
-                  <div className="aspect-[4/5] relative overflow-hidden bg-sand mb-4">
-                    {story.heroImage ? (
-                      <Image
-                        src={story.heroImage}
-                        alt={story.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-sand to-foreground/5" />
-                    )}
-                  </div>
-                  {story.category && (
-                    <p className="text-meta uppercase tracking-wider text-foreground/50 mb-2">
-                      {story.category}
-                    </p>
-                  )}
-                  <h3 className="font-display text-xl font-medium group-hover:text-accent transition-colors">
-                    {story.title}
-                  </h3>
-                  {story.subtitle && (
-                    <p className="text-sm text-foreground/60 mt-1 italic">
-                      {story.subtitle}
-                    </p>
-                  )}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Newsletter */}
-      <section className="py-20 md:py-28 bg-charcoal text-white">
+      {/* Stories Carousel */}
+      <section className="py-20 md:py-28">
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="max-w-2xl">
-            <p className="text-meta uppercase tracking-wider text-white/40 mb-4">Newsletter</p>
-            <h2 className="font-display text-title font-semibold mb-4">
-              From the Loom
-            </h2>
-            <p className="text-lg text-white/60 mb-8">
-              Occasional notes on textiles, new acquisitions, and stories from the archive. 
-              No spam. Unsubscribe anytime.
-            </p>
-            <form className="flex gap-4 flex-col sm:flex-row">
-              <input 
-                type="email" 
-                placeholder="Your email"
-                className="flex-1 px-4 py-3 bg-transparent border border-white/30 text-white placeholder-white/40 focus:outline-none focus:border-white/60"
-              />
-              <button 
-                type="submit"
-                className="px-8 py-3 bg-accent text-white text-sm tracking-wide hover:bg-accent/80 transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
+          <div className="flex justify-between items-end mb-12">
+            <div>
+              <p className="text-meta uppercase tracking-wider text-foreground/50 mb-2">Reading</p>
+              <h2 className="font-display text-title font-semibold">Stories</h2>
+            </div>
+            <Link 
+              href="/stories" 
+              className="text-sm text-accent hover:underline underline-offset-4"
+            >
+              All stories →
+            </Link>
           </div>
+
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
+            </div>
+          ) : stories.length > 0 ? (
+            <div className="relative">
+              {/* Carousel navigation */}
+              <button
+                onClick={() => scrollCarousel('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-2 bg-cream border border-foreground/20 rounded-full hover:bg-sand transition-colors hidden md:flex items-center justify-center"
+                aria-label="Previous stories"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <polyline points="12,4 6,10 12,16" />
+                </svg>
+              </button>
+
+              <button
+                onClick={() => scrollCarousel('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-2 bg-cream border border-foreground/20 rounded-full hover:bg-sand transition-colors hidden md:flex items-center justify-center"
+                aria-label="Next stories"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <polyline points="8,4 14,10 8,16" />
+                </svg>
+              </button>
+
+              {/* Carousel container */}
+              <div
+                id="stories-carousel"
+                className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+              >
+                {stories.map((story) => (
+                  <Link
+                    key={story.slug}
+                    href={`/story/${story.slug}`}
+                    className="group flex-shrink-0 w-[280px] md:w-[300px] snap-start"
+                  >
+                    <div className="aspect-[4/5] relative overflow-hidden bg-sand mb-4">
+                      {story.heroImage ? (
+                        <Image
+                          src={story.heroImage}
+                          alt={story.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-sand to-foreground/5" />
+                      )}
+                    </div>
+                    {story.category && (
+                      <p className="text-meta uppercase tracking-wider text-foreground/50 mb-2">
+                        {story.category}
+                      </p>
+                    )}
+                    <h3 className="font-display text-xl font-medium group-hover:text-accent transition-colors">
+                      {story.title}
+                    </h3>
+                    {story.subtitle && (
+                      <p className="text-sm text-foreground/60 mt-1 italic line-clamp-2">
+                        {story.subtitle}
+                      </p>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p className="text-center text-foreground/50 py-12">Stories coming soon.</p>
+          )}
         </div>
       </section>
 

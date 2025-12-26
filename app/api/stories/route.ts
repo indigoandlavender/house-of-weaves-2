@@ -7,9 +7,9 @@ export const revalidate = 0;
 export async function GET() {
   try {
     const stories = await getStories();
-    return NextResponse.json(stories);
+    return NextResponse.json({ stories });
   } catch (error) {
     console.error('Error fetching stories:', error);
-    return NextResponse.json({ error: 'Failed to fetch stories' }, { status: 500 });
+    return NextResponse.json({ stories: [], error: 'Failed to fetch stories' }, { status: 500 });
   }
 }
