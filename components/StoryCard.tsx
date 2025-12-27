@@ -27,11 +27,21 @@ export default function StoryCard({ story }: StoryCardProps) {
 
       {/* Content */}
       <div>
-        {story.category && (
-          <span className="text-xs uppercase tracking-wide text-foreground/50 mb-2 block">
-            {story.category}
-          </span>
-        )}
+        <div className="flex items-center gap-2 mb-2">
+          {story.category && (
+            <span className="text-xs uppercase tracking-wide text-foreground/50">
+              {story.category}
+            </span>
+          )}
+          {story.category && story.sourceType && (
+            <span className="text-foreground/30">·</span>
+          )}
+          {story.sourceType && (
+            <span className="text-xs text-foreground/40">
+              {story.sourceType}
+            </span>
+          )}
+        </div>
         <h3 className="font-display text-xl text-foreground mb-2 group-hover:text-accent transition-colors">
           {story.title}
         </h3>

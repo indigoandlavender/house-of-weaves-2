@@ -31,6 +31,7 @@ export interface Story {
   title: string;
   subtitle: string;
   category: string;
+  sourceType: string;  // Historical, Ethnographic/Oral, Folk Belief, Art History, Interpretive Mythology, etc.
   heroImage: string;
   heroCaption: string;
   excerpt: string;
@@ -53,7 +54,7 @@ export async function getStories(): Promise<Story[]> {
     
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'Stories!A:Q',
+      range: 'Stories!A:R',
     });
 
     const rows = response.data.values;
