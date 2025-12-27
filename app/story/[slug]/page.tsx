@@ -196,6 +196,15 @@ export default async function StoryPage({ params }: PageProps) {
           {story.readTime && <span>{story.readTime}</span>}
         </div>
 
+        {/* Source Type Badge */}
+        {story.sourceType && (
+          <div className="mb-6">
+            <span className="inline-block text-xs uppercase tracking-widest text-foreground/40 border border-foreground/20 px-3 py-1">
+              {story.sourceType}
+            </span>
+          </div>
+        )}
+
         {/* Title */}
         <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 leading-tight">
           {story.title}
