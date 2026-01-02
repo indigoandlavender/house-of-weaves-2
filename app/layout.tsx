@@ -84,7 +84,7 @@ export default function RootLayout({
     <html lang="en" className={`${cormorant.variable} ${spaceGrotesk.variable}`}>
       <head>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-P1CGE62ZD4"
+          src="https://www.googletagmanager.com/gtag/js?id=G-S384851DJ9"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -92,7 +92,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-P1CGE62ZD4');
+            gtag('config', 'G-S384851DJ9');
           `}
         </Script>
         <script
