@@ -100,16 +100,16 @@ export default function Footer() {
       <section className="py-16 md:py-20 bg-[#3a3a3a]">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="max-w-xl">
-            <p className="text-meta uppercase tracking-wider text-white/40 mb-4">Newsletter</p>
-            <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4">
+            <p className="text-meta uppercase tracking-extra-wide text-white/40 mb-4">Newsletter</p>
+            <h2 className="font-display text-3xl md:text-4xl font-medium mb-4">
               From the Loom
             </h2>
-            <p className="text-white/60 mb-8">
+            <p className="font-body text-white/60 mb-8">
               Occasional notes on textiles, makers, and the stories behind them.
             </p>
             
             {subscribed ? (
-              <p className="text-accent">Thank you for subscribing.</p>
+              <p className="font-body text-accent">Thank you for subscribing.</p>
             ) : (
               <form onSubmit={handleSubscribe} className="flex gap-4 flex-col sm:flex-row">
                 <input
@@ -118,12 +118,12 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
                   required
-                  className="flex-1 px-4 py-3 bg-transparent border border-white/30 text-white placeholder-white/40 focus:outline-none focus:border-white/60"
+                  className="flex-1 px-4 py-3 bg-transparent border border-white/30 font-body text-white placeholder-white/40 focus:outline-none focus:border-white/60"
                 />
                 <button
                   type="submit"
                   disabled={isSubscribing}
-                  className="px-8 py-3 bg-accent text-white text-sm tracking-wide hover:bg-accent/80 transition-colors disabled:opacity-50"
+                  className="px-8 py-3 bg-accent text-white font-body text-sm tracking-wide hover:bg-accent/80 transition-colors disabled:opacity-50"
                 >
                   {isSubscribing ? 'Subscribing...' : 'Subscribe'}
                 </button>
@@ -141,10 +141,10 @@ export default function Footer() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {/* Brand Column */}
             <div>
-              <Link href="/" className="font-display text-2xl font-semibold tracking-tight mb-6 block">
+              <Link href="/" className="font-display text-2xl font-medium tracking-tight mb-6 block">
                 House of Weaves
               </Link>
-              <p className="text-sm text-white/60 leading-relaxed">
+              <p className="font-body text-sm text-white/60 leading-relaxed">
                 A textile archive documenting rugs and weaving traditions from around the world.
               </p>
             </div>
@@ -152,7 +152,7 @@ export default function Footer() {
             {/* Dynamic Columns */}
             {footerColumns.map((column, index) => (
               <div key={index}>
-                <h4 className="text-xs tracking-[0.15em] uppercase mb-6 text-white/50">
+                <h4 className="text-xs tracking-extra-wide uppercase mb-6 text-white/50">
                   {column.title}
                 </h4>
                 <ul className="space-y-3">
@@ -162,20 +162,20 @@ export default function Footer() {
                         link.type === 'link' ? (
                           <Link
                             href={link.href}
-                            className="text-sm text-white/70 hover:text-white transition-colors"
+                            className="font-body text-sm text-white/70 hover:text-white transition-colors"
                           >
                             {link.label}
                           </Link>
                         ) : (
                           <a
                             href={link.href}
-                            className="text-sm text-white/70 hover:text-white transition-colors"
+                            className="font-body text-sm text-white/70 hover:text-white transition-colors"
                           >
                             {link.label}
                           </a>
                         )
                       ) : (
-                        <span className="text-sm text-white/70">{link.label}</span>
+                        <span className="font-body text-sm text-white/70">{link.label}</span>
                       )}
                     </li>
                   ))}

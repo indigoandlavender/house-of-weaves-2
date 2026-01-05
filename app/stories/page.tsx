@@ -90,20 +90,22 @@ export default async function StoriesPage() {
       />
 
       {/* Header */}
-      <section className="pt-32 pb-16 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-display text-4xl md:text-5xl text-foreground mb-6">
+      <section className="pt-32 pb-16 px-6 border-b border-charcoal/10">
+        <div className="max-w-[1400px] mx-auto">
+          <p className="text-meta uppercase tracking-extra-wide text-stone mb-4">From the Archive</p>
+          <h1 className="font-display text-hero font-medium text-charcoal mb-6">
             Stories
           </h1>
-          <p className="text-foreground/70 text-lg max-w-2xl mx-auto">
-            The traditions, techniques, and cultures woven into every thread.
+          <p className="font-body text-charcoal/70 text-xl max-w-2xl">
+            Essays exploring the history, craft, and cultural meaning of carpets and textiles 
+            from around the world.
           </p>
         </div>
       </section>
 
       {/* Stories Grid */}
-      <section className="px-6 pb-24">
-        <div className="max-w-6xl mx-auto">
+      <section className="px-6 py-16 md:py-24">
+        <div className="max-w-[1400px] mx-auto">
           {sortedStories.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {sortedStories.map((story) => (
@@ -112,7 +114,7 @@ export default async function StoriesPage() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <p className="text-foreground/50">Stories coming soon.</p>
+              <p className="font-body text-charcoal/50">Stories coming soon.</p>
             </div>
           )}
         </div>

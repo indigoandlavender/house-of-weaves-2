@@ -1,20 +1,20 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google'
+import { Playfair_Display, Nanum_Myeongjo } from 'next/font/google'
 import Script from 'next/script'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import './globals.css'
 
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
   variable: '--font-display',
   display: 'swap',
 })
 
-const spaceGrotesk = Space_Grotesk({
+const nanum = Nanum_Myeongjo({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '700'],
   variable: '--font-body',
   display: 'swap',
 })
@@ -81,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${nanum.variable}`}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-S384851DJ9"

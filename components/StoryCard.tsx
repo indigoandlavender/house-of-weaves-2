@@ -10,7 +10,7 @@ export default function StoryCard({ story }: StoryCardProps) {
   return (
     <Link href={`/story/${story.slug}`} className="group block">
       {/* Image */}
-      <div className="relative aspect-[4/5] mb-4 overflow-hidden bg-foreground/5">
+      <div className="relative aspect-[4/5] mb-4 overflow-hidden bg-sand">
         {story.heroImage ? (
           <Image
             src={story.heroImage}
@@ -19,8 +19,8 @@ export default function StoryCard({ story }: StoryCardProps) {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <span className="text-foreground/20 text-sm">No image</span>
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-sand to-charcoal/5">
+            <span className="font-body text-charcoal/20 text-sm">No image</span>
           </div>
         )}
       </div>
@@ -29,24 +29,24 @@ export default function StoryCard({ story }: StoryCardProps) {
       <div>
         <div className="flex items-center gap-2 mb-2">
           {story.category && (
-            <span className="text-xs uppercase tracking-wide text-foreground/50">
+            <span className="text-meta uppercase tracking-extra-wide text-stone">
               {story.category}
             </span>
           )}
           {story.category && story.sourceType && (
-            <span className="text-foreground/30">·</span>
+            <span className="text-charcoal/30">·</span>
           )}
           {story.sourceType && (
-            <span className="text-xs text-foreground/40">
+            <span className="text-xs font-body text-charcoal/40">
               {story.sourceType}
             </span>
           )}
         </div>
-        <h3 className="font-display text-xl text-foreground mb-2 group-hover:text-accent transition-colors">
+        <h3 className="font-display text-xl text-charcoal mb-2 group-hover:text-accent transition-colors">
           {story.title}
         </h3>
         {story.subtitle && (
-          <p className="text-sm text-foreground/60 line-clamp-2">
+          <p className="font-body text-sm text-charcoal/60 line-clamp-2 italic">
             {story.subtitle}
           </p>
         )}

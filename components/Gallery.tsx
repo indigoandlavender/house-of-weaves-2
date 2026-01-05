@@ -41,7 +41,7 @@ export default function Gallery({ images }: GalleryProps) {
           <button
             key={index}
             onClick={() => openLightbox(index)}
-            className="relative aspect-square overflow-hidden bg-foreground/5 cursor-pointer group"
+            className="relative aspect-square overflow-hidden bg-sand cursor-pointer group"
           >
             <Image
               src={image.image_url}
@@ -120,7 +120,7 @@ export default function Gallery({ images }: GalleryProps) {
           {/* Caption */}
           {images[currentIndex].caption && (
             <div className="absolute bottom-6 left-0 right-0 text-center">
-              <p className="text-white/70 text-sm max-w-2xl mx-auto px-6">
+              <p className="font-body text-white/70 text-sm max-w-2xl mx-auto px-6">
                 {images[currentIndex].caption}
               </p>
             </div>

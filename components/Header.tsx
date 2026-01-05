@@ -33,7 +33,7 @@ export default function Header({ transparent = false }: HeaderProps) {
       <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
         <Link 
           href="/" 
-          className={`font-display text-2xl md:text-3xl font-semibold tracking-tight transition-colors duration-300 ${
+          className={`font-display text-2xl md:text-3xl font-medium tracking-tight transition-colors duration-300 ${
             isTransparent ? 'text-white' : 'text-foreground'
           }`}
         >
@@ -56,6 +56,14 @@ export default function Header({ transparent = false }: HeaderProps) {
             }`}
           >
             About
+          </Link>
+          <Link 
+            href="/contact" 
+            className={`text-sm tracking-wide transition-colors ${
+              isTransparent ? 'text-white/90 hover:text-white' : 'text-foreground/70 hover:text-foreground'
+            }`}
+          >
+            Contact
           </Link>
         </nav>
 
@@ -87,6 +95,13 @@ export default function Header({ transparent = false }: HeaderProps) {
             onClick={() => setMenuOpen(false)}
           >
             About
+          </Link>
+          <Link 
+            href="/contact" 
+            className="block text-lg"
+            onClick={() => setMenuOpen(false)}
+          >
+            Contact
           </Link>
         </nav>
       )}

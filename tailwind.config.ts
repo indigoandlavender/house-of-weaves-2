@@ -9,12 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#f9f6f1',
+        background: '#FAF9F7',
         foreground: '#1a1a1a',
         accent: '#8b4513',
-        cream: '#f9f6f1',
-        sand: '#e8e0d4',
-        charcoal: '#2d2d2d',
+        cream: '#FAF9F7',
+        sand: '#F5F3EF',
+        charcoal: '#1a1a1a',
+        stone: '#525252',
+        terracotta: '#C4846C',
         gray: {
           100: '#fafafa',
           200: '#e5e5e5',
@@ -26,8 +28,9 @@ const config: Config = {
         }
       },
       fontFamily: {
-        display: ['var(--font-display)', 'serif'],
-        body: ['var(--font-body)', 'sans-serif'],
+        display: ['var(--font-display)', 'Georgia', 'serif'],
+        body: ['var(--font-body)', 'Georgia', 'serif'],
+        serif: ['var(--font-display)', 'Georgia', 'serif'],
       },
       fontSize: {
         'hero': ['clamp(3rem, 10vw, 7rem)', { lineHeight: '0.9', letterSpacing: '-0.02em' }],
@@ -36,6 +39,9 @@ const config: Config = {
         'body-lg': ['1.25rem', { lineHeight: '1.7' }],
         'body': ['1.125rem', { lineHeight: '1.8' }],
         'meta': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.1em' }],
+      },
+      letterSpacing: {
+        'extra-wide': '0.15em',
       },
       spacing: {
         'section': 'clamp(60px, 12vh, 120px)',

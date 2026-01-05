@@ -11,7 +11,7 @@ export default function StoryBody({ content }: StoryBodyProps) {
   const blocks = content.split(/\n\n+/);
 
   return (
-    <div className="prose prose-lg max-w-none">
+    <div className="prose prose-lg max-w-none font-body">
       {blocks.map((block, index) => {
         const trimmed = block.trim();
         if (!trimmed) return null;
@@ -21,7 +21,7 @@ export default function StoryBody({ content }: StoryBodyProps) {
           return (
             <h2
               key={index}
-              className="font-display text-2xl text-foreground mt-12 mb-6 first:mt-0"
+              className="font-display text-2xl text-charcoal mt-12 mb-6 first:mt-0"
             >
               {trimmed.replace('## ', '')}
             </h2>
@@ -33,7 +33,7 @@ export default function StoryBody({ content }: StoryBodyProps) {
           return (
             <h3
               key={index}
-              className="font-display text-xl text-foreground mt-10 mb-4"
+              className="font-display text-xl text-charcoal mt-10 mb-4"
             >
               {trimmed.replace('### ', '')}
             </h3>
@@ -45,7 +45,7 @@ export default function StoryBody({ content }: StoryBodyProps) {
           return (
             <blockquote
               key={index}
-              className="border-l-2 border-accent pl-6 my-8 text-foreground/80 italic"
+              className="border-l-2 border-accent pl-6 my-8 text-charcoal/80 italic"
             >
               {trimmed.replace('> ', '')}
             </blockquote>
@@ -56,7 +56,7 @@ export default function StoryBody({ content }: StoryBodyProps) {
         return (
           <p
             key={index}
-            className="text-foreground/80 leading-relaxed mb-6"
+            className="text-charcoal/80 leading-relaxed mb-6"
           >
             {trimmed}
           </p>

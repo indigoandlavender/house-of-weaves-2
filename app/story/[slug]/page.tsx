@@ -164,7 +164,7 @@ export default async function StoryPage({ params }: PageProps) {
           />
           {story.heroCaption && (
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-              <p className="text-white/80 text-sm max-w-4xl mx-auto">
+              <p className="font-body text-white/80 text-sm max-w-4xl mx-auto">
                 {story.heroCaption}
               </p>
             </div>
@@ -175,49 +175,49 @@ export default async function StoryPage({ params }: PageProps) {
       {/* Article Header */}
       <article className="max-w-3xl mx-auto px-6 py-16">
         {/* Breadcrumb Navigation */}
-        <nav className="text-sm text-foreground/50 mb-8" aria-label="Breadcrumb">
+        <nav className="font-body text-sm text-stone mb-8" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-accent transition-colors">Home</Link></li>
             <li>/</li>
             <li><Link href="/stories" className="hover:text-accent transition-colors">Stories</Link></li>
             <li>/</li>
-            <li className="text-foreground/70">{story.title}</li>
+            <li className="text-charcoal/70">{story.title}</li>
           </ol>
         </nav>
 
         {/* Meta */}
-        <div className="flex items-center gap-3 text-sm text-foreground/50 mb-6">
+        <div className="flex items-center gap-3 text-meta text-stone mb-6">
           {story.category && (
             <>
-              <span className="uppercase tracking-wide">{story.category}</span>
+              <span className="uppercase tracking-extra-wide">{story.category}</span>
               <span>·</span>
             </>
           )}
-          {story.readTime && <span>{story.readTime}</span>}
+          {story.readTime && <span className="font-body">{story.readTime}</span>}
         </div>
 
         {/* Source Type Badge */}
         {story.sourceType && (
           <div className="mb-6">
-            <span className="inline-block text-xs uppercase tracking-widest text-foreground/40 border border-foreground/20 px-3 py-1">
+            <span className="inline-block text-meta uppercase tracking-extra-wide text-charcoal/40 border border-charcoal/20 px-3 py-1">
               {story.sourceType}
             </span>
           </div>
         )}
 
         {/* Title */}
-        <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 leading-tight">
+        <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-charcoal mb-4 leading-tight">
           {story.title}
         </h1>
 
         {/* Subtitle */}
         {story.subtitle && (
-          <p className="text-xl text-foreground/70 italic mb-8">
+          <p className="font-body text-xl text-charcoal/70 italic mb-8">
             {story.subtitle}
           </p>
         )}
 
-        <hr className="border-foreground/10 mb-12" />
+        <hr className="border-charcoal/10 mb-12" />
 
         {/* Body */}
         <StoryBody content={story.body} />
@@ -225,7 +225,7 @@ export default async function StoryPage({ params }: PageProps) {
         {/* Gallery */}
         {galleryImages.length > 0 && (
           <>
-            <hr className="border-foreground/10 my-12" />
+            <hr className="border-charcoal/10 my-12" />
             <Gallery images={galleryImages} />
           </>
         )}
@@ -233,9 +233,9 @@ export default async function StoryPage({ params }: PageProps) {
         {/* Sources */}
         {sources.length > 0 && (
           <>
-            <hr className="border-foreground/10 my-12" />
-            <div className="text-sm text-foreground/60">
-              <h3 className="uppercase tracking-wide text-xs font-medium mb-4">Sources</h3>
+            <hr className="border-charcoal/10 my-12" />
+            <div className="font-body text-sm text-charcoal/60">
+              <h3 className="uppercase tracking-extra-wide text-meta font-medium mb-4">Sources</h3>
               <ul className="space-y-2">
                 {sources.map((source, index) => (
                   <li key={index}>{source}</li>
@@ -246,8 +246,8 @@ export default async function StoryPage({ params }: PageProps) {
         )}
 
         {/* Footer */}
-        <hr className="border-foreground/10 my-12" />
-        <footer className="text-sm text-foreground/50 flex flex-wrap gap-x-4 gap-y-1">
+        <hr className="border-charcoal/10 my-12" />
+        <footer className="font-body text-sm text-stone flex flex-wrap gap-x-4 gap-y-1">
           {story.textBy && <span>Text — {story.textBy}</span>}
           {story.imagesBy && <span>Images — {story.imagesBy}</span>}
           {story.year && <span>{story.year}</span>}
@@ -257,7 +257,7 @@ export default async function StoryPage({ params }: PageProps) {
         <div className="mt-12">
           <Link
             href="/stories"
-            className="inline-flex items-center gap-2 text-sm text-foreground/60 hover:text-accent transition-colors"
+            className="inline-flex items-center gap-2 font-body text-sm text-stone hover:text-accent transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
               <polyline points="10,3 5,8 10,13" />

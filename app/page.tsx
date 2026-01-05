@@ -37,27 +37,27 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-cream">
       {/* Hero */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 border-b border-foreground/10">
+      <section className="pt-32 pb-20 md:pt-40 md:pb-28 border-b border-charcoal/10">
         <div className="max-w-[1400px] mx-auto px-6">
-          <h1 className="font-display text-hero font-semibold leading-[0.9] tracking-tight max-w-4xl">
+          <h1 className="font-display text-hero font-medium leading-[0.9] tracking-tight max-w-4xl">
             A Textile Archive
           </h1>
-          <p className="mt-6 text-xl md:text-2xl text-foreground/60 max-w-2xl leading-relaxed">
-            Rugs and textiles from around the world. The history, the craft, 
-            the stories woven into every thread.
+          <p className="mt-6 font-body text-xl md:text-2xl text-charcoal/70 max-w-2xl leading-relaxed">
+            Documenting the history, craft, and cultural significance of rugs and textiles 
+            from around the world.
           </p>
           <div className="mt-10 flex gap-4">
             <Link 
               href="/stories"
-              className="inline-block px-6 py-3 bg-foreground text-cream text-sm tracking-wide hover:bg-foreground/80 transition-colors"
+              className="inline-block px-6 py-3 bg-charcoal text-cream font-body text-sm tracking-wide hover:bg-charcoal/80 transition-colors"
             >
               Read Stories
             </Link>
             <Link 
               href="/about"
-              className="inline-block px-6 py-3 border border-foreground text-foreground text-sm tracking-wide hover:bg-foreground hover:text-cream transition-colors"
+              className="inline-block px-6 py-3 border border-charcoal text-charcoal font-body text-sm tracking-wide hover:bg-charcoal hover:text-cream transition-colors"
             >
-              About
+              About the Archive
             </Link>
           </div>
         </div>
@@ -68,14 +68,14 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex justify-between items-end mb-12">
             <div>
-              <p className="text-meta uppercase tracking-wider text-foreground/50 mb-2">Reading</p>
-              <h2 className="font-display text-title font-semibold">Stories</h2>
+              <p className="text-meta uppercase tracking-extra-wide text-stone mb-2">From the Archive</p>
+              <h2 className="font-display text-title font-medium">Stories</h2>
             </div>
           </div>
 
           {loading ? (
             <div className="flex justify-center py-12">
-              <div className="w-8 h-8 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
+              <div className="w-8 h-8 border-2 border-charcoal/20 border-t-charcoal rounded-full animate-spin" />
             </div>
           ) : stories.length > 0 ? (
             <>
@@ -95,11 +95,11 @@ export default function Home() {
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-sand to-foreground/5" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-sand to-charcoal/5" />
                       )}
                     </div>
                     {story.category && (
-                      <p className="text-meta uppercase tracking-wider text-foreground/50 mb-2">
+                      <p className="text-meta uppercase tracking-extra-wide text-stone mb-2">
                         {story.category}
                       </p>
                     )}
@@ -107,7 +107,7 @@ export default function Home() {
                       {story.title}
                     </h3>
                     {story.subtitle && (
-                      <p className="text-sm text-foreground/60 mt-1 italic line-clamp-2">
+                      <p className="font-body text-sm text-charcoal/60 mt-1 italic line-clamp-2">
                         {story.subtitle}
                       </p>
                     )}
@@ -119,14 +119,14 @@ export default function Home() {
               <div className="mt-12 text-center">
                 <Link 
                   href="/stories" 
-                  className="inline-block px-8 py-3 border border-foreground text-foreground text-sm tracking-wide hover:bg-foreground hover:text-cream transition-colors"
+                  className="inline-block px-8 py-3 border border-charcoal text-charcoal font-body text-sm tracking-wide hover:bg-charcoal hover:text-cream transition-colors"
                 >
                   View all stories →
                 </Link>
               </div>
             </>
           ) : (
-            <p className="text-center text-foreground/50 py-12">Stories coming soon.</p>
+            <p className="text-center font-body text-charcoal/50 py-12">Stories coming soon.</p>
           )}
         </div>
       </section>
