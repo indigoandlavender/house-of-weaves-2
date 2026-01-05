@@ -56,7 +56,7 @@ export async function getStories(): Promise<Story[]> {
     
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'Stories!A:R',
+      range: 'Stories!A:Z',
     });
 
     const rows = response.data.values;
