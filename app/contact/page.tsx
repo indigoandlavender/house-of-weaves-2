@@ -3,22 +3,22 @@ import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with House of Weaves about research inquiries, pieces from the collection, or collaboration proposals.",
+  description: "Get in touch with Tilwen about Moroccan rugs.",
 };
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-sand">
+    <div className="min-h-screen bg-sand">
       <section className="px-6 md:px-12 py-20 md:py-32">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             
             {/* Left column — title only */}
             <div>
-              <p className="text-meta uppercase tracking-extra-wide text-stone mb-6">
+              <p className="text-[11px] uppercase tracking-[0.2em] text-stone/50 mb-6">
                 Get in Touch
               </p>
-              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
+              <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
                 Send us<br />
                 a note.
               </h1>
@@ -31,6 +31,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { useState } from 'react'
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
 // Social Icons - flat, minimal, Anthropic style
 function SocialIcon({ name }: { name: string }) {
-  const icons: { [key: string]: JSX.Element } = {
+  const icons: Record<string, JSX.Element> = {
     pinterest: (
       <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.25">
         <circle cx="10" cy="10" r="8" />
@@ -21,227 +21,326 @@ function SocialIcon({ name }: { name: string }) {
         <circle cx="14.5" cy="5.5" r="0.75" fill="currentColor" />
       </svg>
     ),
-  }
+    youtube: (
+      <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.25">
+        <rect x="2" y="4" width="16" height="12" rx="3" />
+        <path d="M8 7.5V12.5L13 10L8 7.5Z" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+    facebook: (
+      <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.25">
+        <circle cx="10" cy="10" r="8" />
+        <path d="M10.5 17V10H13L13.5 7.5H10.5V6C10.5 5 11 4.5 12 4.5H13.5V2.5C13.5 2.5 12.5 2.5 11.5 2.5C9.5 2.5 8.5 3.5 8.5 5.5V7.5H6V10H8.5V17" />
+      </svg>
+    ),
+    tiktok: (
+      <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.25">
+        <path d="M10 2V14C10 15.5 8.5 17 7 17C5.5 17 4 15.5 4 14C4 12.5 5.5 11 7 11" />
+        <path d="M10 2C10 2 10 5 14 5" />
+        <path d="M10 6C10 6 10 8 16 8" />
+      </svg>
+    ),
+  };
 
-  return icons[name] || <span className="text-sm">{name}</span>
+  return icons[name] || <span className="text-sm">{name}</span>;
 }
 
-// Site configuration
-const siteConfig = {
-  siteId: 'house-of-weaves',
-  siteType: 'content' as const,
-  brandName: 'House of Weaves',
-  contactEmail: 'hello@houseofweaves.com',
-  location: 'Marrakech, Morocco',
+interface FooterLink {
+  order: number;
+  label: string;
+  href: string | null;
+  type: string;
 }
 
-// Footer columns data
-const footerColumns = [
-  {
-    title: 'Contact',
-    links: [
-      { label: 'Marrakech, Morocco', href: null, type: 'address' },
-      { label: 'hello@houseofweaves.com', href: 'mailto:hello@houseofweaves.com', type: 'email' },
-    ],
-    social: [
-      { label: 'Instagram', href: 'https://instagram.com/houseofweaves' },
-      { label: 'Pinterest', href: 'https://pinterest.com/houseofweaves' },
-    ],
-  },
-  {
-    title: 'Explore',
-    links: [
-      { label: 'Stories', href: '/stories', type: 'link' },
-      { label: 'About', href: '/about', type: 'link' },
-      { label: 'Contact', href: '/contact', type: 'link' },
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      { label: 'Privacy Policy', href: '/privacy', type: 'link' },
-      { label: 'Terms of Service', href: '/terms', type: 'link' },
-      { label: 'Disclaimer', href: '/disclaimer', type: 'link' },
-      { label: 'Intellectual Property', href: '/intellectual-property', type: 'link' },
-    ],
-  },
-]
+interface FooterColumn {
+  number: number;
+  title: string;
+  links: FooterLink[];
+}
 
-// Legal links for bottom bar
-const legalLinks = [
-  { label: 'Privacy', href: '/privacy' },
-  { label: 'Terms', href: '/terms' },
-  { label: 'Disclaimer', href: '/disclaimer' },
-  { label: 'IP', href: '/intellectual-property' },
-]
+interface FooterData {
+  newsletter: {
+    show: boolean;
+    title: string;
+    description: string;
+    brandName: string;
+  };
+  columns: FooterColumn[];
+  legal: { label: string; href: string }[];
+}
+
+const defaultFooterData: FooterData = {
+  newsletter: {
+    show: true,
+    title: "New Arrivals",
+    description: "Be the first to see new rugs. No spam, just beautiful things.",
+    brandName: "Tilwen",
+  },
+  columns: [
+    {
+      number: 1,
+      title: "Tilwen",
+      links: [
+        { order: 1, label: "hello@tilwen.com", href: "mailto:hello@tilwen.com", type: "email" },
+      ],
+    },
+    {
+      number: 2,
+      title: "Shop",
+      links: [
+        { order: 1, label: "All Rugs", href: "/shop", type: "link" },
+        { order: 2, label: "About", href: "/about", type: "link" },
+        { order: 3, label: "Contact", href: "/contact", type: "link" },
+      ],
+    },
+    {
+      number: 3,
+      title: "Help",
+      links: [
+        { order: 1, label: "FAQ", href: "/faq", type: "link" },
+        { order: 2, label: "Shipping", href: "/shipping", type: "link" },
+        { order: 3, label: "Returns", href: "/returns", type: "link" },
+        { order: 4, label: "Care Guide", href: "/care", type: "link" },
+        { order: 5, label: "Glossary", href: "/glossary", type: "link" },
+      ],
+    },
+  ],
+  legal: [
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
+  ],
+};
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
-  const [isSubscribing, setIsSubscribing] = useState(false)
+  const [footerData, setFooterData] = useState<FooterData>(defaultFooterData);
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+  const [subscribeMessage, setSubscribeMessage] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/footer")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.success && data.data) {
+          setFooterData({
+            newsletter: data.data.newsletter || defaultFooterData.newsletter,
+            columns: data.data.columns || defaultFooterData.columns,
+            legal: data.data.legal || defaultFooterData.legal,
+          });
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch footer data:", err);
+      });
+  }, []);
 
   const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email || isSubscribing) return
-    
-    setIsSubscribing(true)
-    // Simulate subscription
-    setTimeout(() => {
-      setSubscribed(true)
-      setIsSubscribing(false)
-    }, 500)
-  }
+    e.preventDefault();
+    if (!email.trim() || isSubscribing) return;
+
+    setIsSubscribing(true);
+
+    try {
+      const response = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubscribed(true);
+        setSubscribeMessage(data.message);
+        setEmail("");
+      } else {
+        setSubscribeMessage(data.message || "Something went wrong.");
+      }
+    } catch (error) {
+      console.error("Newsletter subscription error:", error);
+      setSubscribeMessage("Something went wrong. Please try again.");
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
 
   return (
-    <footer className="text-white">
+    <footer>
       {/* ════════════════════════════════════════════════════════════════════
-          LEVEL 1: Newsletter (lightest)
+          LEVEL 1: Newsletter
+          Warm terracotta background, inviting
           ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-20 bg-[#3a3a3a]">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="max-w-xl">
-            <p className="text-meta uppercase tracking-extra-wide text-white/40 mb-4">Newsletter</p>
-            <h2 className="font-display text-3xl md:text-4xl font-medium mb-4">
-              From the Loom
-            </h2>
-            <p className="font-body text-white/60 mb-8">
-              Occasional notes on textiles, makers, and the stories behind them.
+      {footerData.newsletter.show && (
+        <section className="py-16 md:py-20 bg-[#C4846C]">
+          <div className="max-w-xl mx-auto px-6 text-center text-white">
+            <h3 className="font-serif text-2xl md:text-3xl mb-3">
+              {footerData.newsletter.title}
+            </h3>
+            <p className="text-white/80 mb-8 text-sm">
+              {footerData.newsletter.description}
             </p>
-            
+
             {subscribed ? (
-              <p className="font-body text-accent">Thank you for subscribing.</p>
+              <p className="text-white/90">{subscribeMessage || "You're in."}</p>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-4 flex-col sm:flex-row">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email"
-                  required
-                  className="flex-1 px-4 py-3 bg-transparent border border-white/30 font-body text-white placeholder-white/40 focus:outline-none focus:border-white/60"
-                />
-                <button
-                  type="submit"
-                  disabled={isSubscribing}
-                  className="px-8 py-3 bg-accent text-white font-body text-sm tracking-wide hover:bg-accent/80 transition-colors disabled:opacity-50"
+              <>
+                <form
+                  onSubmit={handleSubscribe}
+                  className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto items-end"
                 >
-                  {isSubscribing ? 'Subscribing...' : 'Subscribe'}
-                </button>
-              </form>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email"
+                    required
+                    disabled={isSubscribing}
+                    className="flex-1 px-0 py-3 bg-transparent border-0 border-b border-white/50 text-white placeholder:text-white/50 focus:outline-none focus:border-white transition-colors disabled:opacity-50"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubscribing}
+                    className="px-6 py-3 bg-white text-[#C4846C] text-xs tracking-[0.15em] uppercase hover:bg-white/90 transition-colors disabled:opacity-50"
+                  >
+                    {isSubscribing ? "..." : "Subscribe"}
+                  </button>
+                </form>
+                {subscribeMessage && !subscribed && (
+                  <p className="text-white/70 text-sm mt-3">{subscribeMessage}</p>
+                )}
+              </>
             )}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ════════════════════════════════════════════════════════════════════
-          LEVEL 2: Navigation Links (medium)
+          LEVEL 2: Brand Content
+          Charcoal background with navigation columns
           ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-12 md:py-16 bg-[#2d2d2d]">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            {/* Brand Column */}
-            <div>
-              <Link href="/" className="font-display text-2xl font-medium tracking-tight mb-6 block">
-                House of Weaves
-              </Link>
-              <p className="font-body text-sm text-white/60 leading-relaxed">
-                A textile archive documenting rugs and weaving traditions from around the world.
-              </p>
-            </div>
+      <section className="py-16 md:py-20 bg-[#1f1f1f] text-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+            {footerData.columns.map((column, index) => {
+              // Separate social links from regular links
+              const socialLinks = column.links.filter(
+                (link) =>
+                  link.type === "social" ||
+                  ["pinterest", "instagram", "youtube", "facebook", "tiktok"].includes(
+                    link.label.toLowerCase()
+                  )
+              );
+              const regularLinks = column.links.filter(
+                (link) =>
+                  link.type !== "social" &&
+                  !["pinterest", "instagram", "youtube", "facebook", "tiktok"].includes(
+                    link.label.toLowerCase()
+                  )
+              );
 
-            {/* Dynamic Columns */}
-            {footerColumns.map((column, index) => (
-              <div key={index}>
-                <h4 className="text-xs tracking-extra-wide uppercase mb-6 text-white/50">
-                  {column.title}
-                </h4>
-                <ul className="space-y-3">
-                  {column.links.map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      {link.href ? (
-                        link.type === 'link' ? (
-                          <Link
-                            href={link.href}
-                            className="font-body text-sm text-white/70 hover:text-white transition-colors"
-                          >
-                            {link.label}
-                          </Link>
+              return (
+                <div key={index}>
+                  {/* First column shows brand name in serif */}
+                  {index === 0 ? (
+                    <p className="font-serif text-xl mb-6 text-white/90">
+                      {column.title}
+                    </p>
+                  ) : (
+                    <h4 className="text-xs tracking-[0.15em] uppercase mb-6 text-white/50">
+                      {column.title}
+                    </h4>
+                  )}
+
+                  {/* Regular links */}
+                  <ul className="space-y-3">
+                    {regularLinks.map((link, linkIndex) => (
+                      <li key={linkIndex}>
+                        {link.href ? (
+                          link.type === "link" ? (
+                            <Link
+                              href={link.href}
+                              className="text-sm text-white/70 hover:text-white transition-colors"
+                            >
+                              {link.label}
+                            </Link>
+                          ) : (
+                            <a
+                              href={link.href}
+                              target={link.type === "email" ? undefined : "_blank"}
+                              rel={link.type === "email" ? undefined : "noopener noreferrer"}
+                              className="text-sm text-white/70 hover:text-white transition-colors"
+                            >
+                              {link.label}
+                            </a>
+                          )
                         ) : (
-                          <a
-                            href={link.href}
-                            className="font-body text-sm text-white/70 hover:text-white transition-colors"
-                          >
-                            {link.label}
-                          </a>
-                        )
-                      ) : (
-                        <span className="font-body text-sm text-white/70">{link.label}</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-                
-                {/* Social icons */}
-                {column.social && column.social.length > 0 && (
-                  <div className="flex items-center gap-4 mt-4">
-                    {column.social.map((social, socialIndex) => (
-                      <a
-                        key={socialIndex}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white/70 hover:text-white transition-colors"
-                        aria-label={social.label}
-                      >
-                        <SocialIcon name={social.label.toLowerCase()} />
-                      </a>
+                          <span className="text-sm text-white/70">{link.label}</span>
+                        )}
+                      </li>
                     ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                  </ul>
+
+                  {/* Social icons in a row */}
+                  {socialLinks.length > 0 && (
+                    <div className="flex items-center gap-2 mt-4">
+                      {socialLinks.map((link, linkIndex) => {
+                        const socialName = link.label.toLowerCase();
+                        return link.href ? (
+                          <a
+                            key={linkIndex}
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white/70 hover:text-white transition-colors p-2 -m-2"
+                            aria-label={link.label}
+                          >
+                            <SocialIcon name={socialName} />
+                          </a>
+                        ) : (
+                          <span
+                            key={linkIndex}
+                            className="text-white/70 p-2"
+                            aria-label={link.label}
+                          >
+                            <SocialIcon name={socialName} />
+                          </span>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          LEVEL 3: Legal + Copyright (darkest)
+          LEVEL 3: Legal
+          Darkest layer with legal links and copyright
           ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-6 bg-[#1f1f1f]">
-        <div className="max-w-[1400px] mx-auto px-6">
+      <section className="py-6 bg-[#161616]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
           {/* Legal links row */}
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-4">
-            {legalLinks.map((link, index) => (
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 mb-4">
+            {footerData.legal.map((link, index) => (
               <Link
                 key={index}
                 href={link.href}
-                className="text-xs text-white/40 hover:text-white/70 transition-colors"
+                className="text-xs text-white/40 hover:text-white/70 transition-colors py-2 px-2"
               >
                 {link.label}
               </Link>
             ))}
-            
-            {/* Separator */}
-            <span className="text-white/20">|</span>
-            
-            {/* Language selector */}
-            <button className="text-xs text-white/40 hover:text-white/70 transition-colors flex items-center gap-1">
-              <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="8" cy="8" r="6.5" />
-                <line x1="1.5" y1="8" x2="14.5" y2="8" />
-                <path d="M8 1.5C6 4 6 12 8 14.5" />
-                <path d="M8 1.5C10 4 10 12 8 14.5" />
-              </svg>
-              English
-            </button>
           </div>
-          
+
           {/* Copyright */}
-          <p className="text-center text-xs text-white/40">
-            © {new Date().getFullYear()} {siteConfig.brandName}. All rights reserved.
+          <p className="text-center text-xs text-white/30">
+            © {new Date().getFullYear()} {footerData.newsletter.brandName}. All rights reserved.
           </p>
         </div>
       </section>
     </footer>
-  )
+  );
 }

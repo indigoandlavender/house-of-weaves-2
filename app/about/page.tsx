@@ -1,231 +1,173 @@
-import { Metadata } from 'next';
-import Link from 'next/link'
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://houseofweaves.com';
+import { getSettings } from "@/lib/sheets";
+import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: 'About',
-  description: 'House of Weaves is an independent research archive documenting the history, craft, and cultural significance of carpets and textiles from around the world.',
-  openGraph: {
-    title: 'About | House of Weaves',
-    description: 'An independent research archive documenting the history, craft, and cultural significance of carpets and textiles.',
-    url: `${siteUrl}/about`,
-    siteName: 'House of Weaves',
-    locale: 'en_GB',
-    type: 'website',
-  },
-  alternates: {
-    canonical: `${siteUrl}/about`,
-  },
+  title: "About",
+  description: "About Tilwen — Moroccan rugs curated by the founder of House of Weaves, an ethnographic textile archive documenting weaving traditions across five continents.",
 };
 
-export default function AboutPage() {
-  return (
-    <main className="min-h-screen bg-cream">
-      {/* Hero */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 border-b border-charcoal/10">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <p className="text-meta uppercase tracking-extra-wide text-stone mb-4">About the Archive</p>
-          <h1 className="font-display text-hero font-medium leading-[0.9] tracking-tight max-w-4xl">
-            Documenting the World's Textile Heritage
-          </h1>
-        </div>
-      </section>
+export const revalidate = 3600;
 
-      {/* Mission Statement */}
-      <section className="py-16 md:py-24 border-b border-charcoal/10">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="max-w-3xl">
-            <p className="font-body text-xl md:text-2xl leading-relaxed text-charcoal/80">
-              House of Weaves is an independent research archive dedicated to documenting the history, 
-              craft, and cultural significance of carpets and textiles. We trace the threads that connect 
-              civilizations across time and geography — from the geometric precision of Amazigh weavers 
-              in the Atlas Mountains to the silk traditions of the Silk Road, from the indigo cultures 
-              of West Africa to the prayer rugs of Anatolia.
-            </p>
+export default async function AboutPage() {
+  const settings = await getSettings();
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero section */}
+      <section className="px-6 md:px-12 py-20 md:py-32">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+            
+            {/* Left column — title and intro */}
+            <div className="lg:col-span-5">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-stone mb-6">
+                About the Collection
+              </p>
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-8">
+                Rugs with<br />
+                <span className="text-stone">provenance</span>
+              </h1>
+            </div>
+
+            {/* Right column — text */}
+            <div className="lg:col-span-6 lg:col-start-7 lg:pt-16">
+              <div className="space-y-6 text-charcoal leading-relaxed">
+                <p>
+                  {settings.aboutText || "Tilwen is a curated collection of Moroccan rugs — vintage pieces with decades of patina and contemporary works from Atlas Mountain weavers."}
+                </p>
+                <p>
+                  Every piece has been personally sourced. Walked through souks, held up to the light, felt underfoot. We seek rugs with presence: the bold geometry of a Beni Ourain, the joyful chaos of a Boucherouite, the quiet elegance of an aged Azilal.
+                </p>
+                <p>
+                  Because each piece is singular — one weaver, one loom, one moment in time — what you see is what remains. When it's gone, it's gone.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Content Sections */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            {/* Main Content */}
-            <div className="lg:col-span-8">
-              <div className="space-y-16">
-                {/* The Archive */}
-                <div>
-                  <h2 className="font-display text-2xl md:text-3xl font-medium mb-6">The Archive</h2>
-                  <div className="font-body text-lg leading-relaxed text-charcoal/80 space-y-6">
-                    <p>
-                      Our archive comprises original research, field documentation, and scholarly essays 
-                      covering textile traditions from over forty countries. Each entry draws on academic 
-                      sources, museum collections, and firsthand observation from artisan communities.
-                    </p>
-                    <p>
-                      We document not only the technical aspects of production — fiber, dye, loom, knot — 
-                      but the cultural contexts in which textiles function as currency, as dowry, as prayer, 
-                      as protection, as identity. A carpet is never merely decorative. It is compressed 
-                      knowledge, portable wealth, and often the most valuable object a family owns.
-                    </p>
-                    <p>
-                      Every claim in our archive is sourced. We cite our references because this is 
-                      documentation, not decoration. The stories are remarkable enough without embellishment.
-                    </p>
-                  </div>
-                </div>
+      {/* Philosophy section */}
+      <section className="px-6 md:px-12 py-20 md:py-32 bg-sand/40">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-stone mb-8">
+            Philosophy
+          </p>
+          <blockquote className="font-serif text-2xl md:text-3xl lg:text-4xl leading-relaxed text-charcoal mb-8">
+            "We don't sell rugs by the meter. We find the ones that want to be found."
+          </blockquote>
+        </div>
+      </section>
 
-                {/* Research Methodology */}
-                <div>
-                  <h2 className="font-display text-2xl md:text-3xl font-medium mb-6">Methodology</h2>
-                  <div className="font-body text-lg leading-relaxed text-charcoal/80 space-y-6">
-                    <p>
-                      Our research methodology distinguishes between evidence types. We label each story 
-                      by its source category — archaeological, ethnographic, oral tradition, or folk belief — 
-                      so readers understand what kind of truth they are encountering.
-                    </p>
-                    <p>
-                      <span className="font-bold text-charcoal">Living Biological History</span> denotes 
-                      traditions verified by peer-reviewed science and still practiced today. 
-                      <span className="font-bold text-charcoal"> Archaeological Evidence</span> refers 
-                      to physical artifacts, excavations, and material analysis. 
-                      <span className="font-bold text-charcoal"> Ethnographic Documentation</span> draws 
-                      on fieldwork, interviews, and participant observation. 
-                      <span className="font-bold text-charcoal"> Oral Tradition</span> preserves knowledge 
-                      transmitted through generations of practitioners.
-                    </p>
-                    <p>
-                      This transparency matters. When a weaver tells us that a particular motif protects 
-                      against the evil eye, we document it as lived belief — valuable ethnographic data — 
-                      without claiming it as scientific fact.
-                    </p>
-                  </div>
-                </div>
+      {/* House of Weaves connection — expanded */}
+      <section className="px-6 md:px-12 py-20 md:py-32">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+            <div className="lg:col-span-5">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-stone mb-4">
+                The Research
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl leading-tight mb-6">
+                House of Weaves
+              </h2>
+              <p className="text-stone text-sm leading-relaxed">
+                An ethnographic archive documenting textile traditions across five continents — from the silk roads of Uzbekistan to the indigo vats of West Africa.
+              </p>
+            </div>
+            <div className="lg:col-span-6 lg:col-start-7">
+              <div className="space-y-6 text-charcoal leading-relaxed">
+                <p>
+                  Tilwen is curated by the founder of House of Weaves — a living archive of over 170 stories about weaving cultures worldwide. The same eye that researches the Tuareg tent makers of Niger and the byssus weavers of Sardinia informs what enters this collection.
+                </p>
+                <p>
+                  When you buy a rug from Tilwen, you're not just acquiring a floor covering. You're acquiring a piece of documented tradition — with all the context of who made it, how, and why it matters.
+                </p>
+                <p className="text-stone text-sm">
+                  House of Weaves covers Moroccan textiles extensively: from the wedding blankets of the Middle Atlas to the recycled Boucherouite tradition that emerged when imported synthetics reached remote villages. Each rug here carries that depth.
+                </p>
+              </div>
+              <div className="mt-8 pt-8 border-t border-charcoal/10">
+                <a 
+                  href="https://www.houseofweaves.love" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] border border-charcoal/20 px-6 py-4 hover:bg-charcoal hover:text-cream transition-colors"
+                >
+                  Explore the Archive
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                {/* The Collection */}
+      {/* The Difference section */}
+      <section className="px-6 md:px-12 py-20 md:py-32 bg-sand/40">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+            <div className="lg:col-span-5">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-stone mb-4">
+                What Sets Us Apart
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl leading-tight">
+                The Tilwen<br />
+                <span className="text-stone">difference</span>
+              </h2>
+            </div>
+            <div className="lg:col-span-6 lg:col-start-7">
+              <div className="space-y-8">
                 <div>
-                  <h2 className="font-display text-2xl md:text-3xl font-medium mb-6">The Collection</h2>
-                  <div className="font-body text-lg leading-relaxed text-charcoal/80 space-y-6">
-                    <p>
-                      House of Weaves maintains a physical collection of carpets and textiles, primarily 
-                      from Morocco, Central Asia, and Anatolia. Some pieces are available for acquisition 
-                      through our sister site, <Link href="https://tilwen.com" className="text-accent underline underline-offset-2 hover:no-underline">Tilwen</Link>. Others remain in the archive for 
-                      documentation purposes only.
-                    </p>
-                    <p>
-                      We also catalog pieces held in museum collections and private holdings worldwide. 
-                      Our goal is comprehensive documentation — understanding how a 16th-century Safavid 
-                      carpet was constructed enriches knowledge regardless of where the physical object resides.
-                    </p>
-                  </div>
+                  <h3 className="font-serif text-lg mb-2">Research-backed selection</h3>
+                  <p className="text-charcoal text-sm leading-relaxed">
+                    Not just "pretty rugs from Morocco" — pieces selected with ethnographic knowledge of weaving traditions, regional styles, and what makes certain rugs exceptional.
+                  </p>
                 </div>
-
-                {/* Editorial Independence */}
                 <div>
-                  <h2 className="font-display text-2xl md:text-3xl font-medium mb-6">Editorial Independence</h2>
-                  <div className="font-body text-lg leading-relaxed text-charcoal/80 space-y-6">
-                    <p>
-                      House of Weaves operates as an independent research initiative. We have no 
-                      institutional affiliations, accept no advertising, and maintain complete editorial 
-                      independence. Our work is funded through the sale of authenticated pieces and 
-                      direct support from readers who value this documentation.
-                    </p>
-                    <p>
-                      We believe that traditional knowledge systems deserve the same rigorous documentation 
-                      applied to any field of study. A carpet that took a woman six months to weave, 
-                      encoding patterns her grandmother taught her, deserves more than a casual caption.
-                    </p>
-                  </div>
+                  <h3 className="font-serif text-lg mb-2">One-of-one inventory</h3>
+                  <p className="text-charcoal text-sm leading-relaxed">
+                    No reproductions, no factory production. Each rug is a singular artifact. We'd rather sell fewer pieces than compromise on provenance.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-serif text-lg mb-2">Transparent sourcing</h3>
+                  <p className="text-charcoal text-sm leading-relaxed">
+                    We know where our rugs come from. Ask us about any piece and we'll tell you its origin region, approximate age, and what makes it interesting.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-serif text-lg mb-2">No pressure</h3>
+                  <p className="text-charcoal text-sm leading-relaxed">
+                    Video consultations, additional photos, sizing advice — take your time. These rugs have waited decades. They can wait for the right home.
+                  </p>
                 </div>
               </div>
             </div>
-
-            {/* Sidebar */}
-            <aside className="lg:col-span-4">
-              <div className="lg:sticky lg:top-32 space-y-10">
-                {/* Location */}
-                <div className="p-8 bg-sand">
-                  <h3 className="text-meta uppercase tracking-extra-wide text-stone mb-4">Location</h3>
-                  <p className="font-body text-lg text-charcoal">
-                    Marrakech, Morocco
-                  </p>
-                  <p className="font-body text-charcoal/60 mt-2">
-                    Field research across North Africa, Central Asia, and the Middle East
-                  </p>
-                </div>
-
-                {/* Contact */}
-                <div className="p-8 bg-sand">
-                  <h3 className="text-meta uppercase tracking-extra-wide text-stone mb-4">Inquiries</h3>
-                  <p className="font-body text-charcoal/80 mb-4">
-                    For research inquiries, collection access, or collaboration proposals.
-                  </p>
-                  <Link 
-                    href="/contact"
-                    className="inline-block text-accent font-body underline underline-offset-2 hover:no-underline"
-                  >
-                    Contact Us →
-                  </Link>
-                </div>
-
-                {/* Related */}
-                <div className="p-8 bg-sand">
-                  <h3 className="text-meta uppercase tracking-extra-wide text-stone mb-4">Related</h3>
-                  <ul className="space-y-3 font-body">
-                    <li>
-                      <Link 
-                        href="https://tilwen.com" 
-                        className="text-charcoal/80 hover:text-accent transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Tilwen — Moroccan Rugs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link 
-                        href="https://dancingwithlions.com" 
-                        className="text-charcoal/80 hover:text-accent transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Dancing with Lions
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </aside>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 md:py-24 bg-sand">
-        <div className="max-w-[1400px] mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-medium mb-6">
-            Explore the Archive
-          </h2>
-          <p className="font-body text-lg text-charcoal/70 max-w-2xl mx-auto mb-10">
-            Browse our collection of essays documenting textile traditions from around the world.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/stories"
-              className="inline-block px-8 py-4 bg-charcoal text-cream font-body text-sm tracking-wide hover:bg-charcoal/80 transition-colors"
-            >
-              Read Stories
-            </Link>
-            <Link 
-              href="/contact"
-              className="inline-block px-8 py-4 border border-charcoal text-charcoal font-body text-sm tracking-wide hover:bg-charcoal hover:text-cream transition-colors"
-            >
-              Get in Touch
-            </Link>
+      {/* Contact CTA */}
+      <section className="px-6 md:px-12 py-20 md:py-32 border-t border-charcoal/10">
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-stone mb-3">
+              Get in touch
+            </p>
+            <p className="text-charcoal">
+              Questions about a piece? Looking for something specific?
+            </p>
           </div>
+          <Link 
+            href="/contact"
+            className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] border border-charcoal/20 px-6 py-4 hover:bg-charcoal hover:text-cream transition-colors"
+          >
+            Contact Us
+            <span className="text-lg">→</span>
+          </Link>
         </div>
       </section>
-    </main>
-  )
+    </div>
+  );
 }

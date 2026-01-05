@@ -1,57 +1,30 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: '#FAF9F7',
-        foreground: '#1a1a1a',
-        accent: '#8b4513',
-        cream: '#FAF9F7',
-        sand: '#F5F3EF',
-        charcoal: '#1a1a1a',
-        stone: '#525252',
-        terracotta: '#C4846C',
-        gray: {
-          100: '#fafafa',
-          200: '#e5e5e5',
-          300: '#d4d4d4',
-          400: '#999999',
-          500: '#737373',
-          600: '#666666',
-          700: '#404040',
-        }
+        cream: "#FAF9F7",
+        sand: "#F5F3EF",
+        charcoal: "#1a1a1a",
+        stone: "#525252",
+        terracotta: "#C4846C",
       },
       fontFamily: {
-        display: ['var(--font-display)', 'Georgia', 'serif'],
-        body: ['var(--font-body)', 'Georgia', 'serif'],
-        serif: ['var(--font-display)', 'Georgia', 'serif'],
-      },
-      fontSize: {
-        'hero': ['clamp(3rem, 10vw, 7rem)', { lineHeight: '0.9', letterSpacing: '-0.02em' }],
-        'title': ['clamp(2rem, 6vw, 4rem)', { lineHeight: '1', letterSpacing: '-0.02em' }],
-        'subtitle': ['clamp(1.25rem, 3vw, 1.75rem)', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
-        'body-lg': ['1.25rem', { lineHeight: '1.7' }],
-        'body': ['1.125rem', { lineHeight: '1.8' }],
-        'meta': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.1em' }],
+        serif: ["var(--font-playfair)", "Georgia", "serif"],
+        body: ["var(--font-nanum)", "Georgia", "serif"],
       },
       letterSpacing: {
-        'extra-wide': '0.15em',
+        "extra-wide": "0.15em",
       },
-      spacing: {
-        'section': 'clamp(60px, 12vh, 120px)',
-      },
-      maxWidth: {
-        'content': '720px',
-        'wide': '1200px',
-      }
     },
   },
   plugins: [],
-}
-export default config
+};
+
+export default config;
