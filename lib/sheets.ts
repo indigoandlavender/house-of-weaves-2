@@ -32,6 +32,7 @@ export interface Story {
   subtitle: string;
   category: string;
   region: string;  // Geographic region for map placement
+  country: string; // Country for map placement
   sourceType: string;  // Historical, Ethnographic/Oral, Folk Belief, Art History, Interpretive Mythology, etc.
   heroImage: string;
   heroCaption: string;
