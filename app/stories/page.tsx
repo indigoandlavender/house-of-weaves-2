@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getStories } from '@/lib/sheets';
-import StoryCard from '@/components/StoryCard';
+import StoriesPageClient from '@/components/StoriesPageClient';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -103,20 +103,10 @@ export default async function StoriesPage() {
         </div>
       </section>
 
-      {/* Stories Grid */}
+      {/* Stories Content */}
       <section className="px-6 py-16 md:py-24">
         <div className="max-w-[1400px] mx-auto">
-          {sortedStories.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {sortedStories.map((story) => (
-                <StoryCard key={story.slug} story={story} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <p className="font-body text-charcoal/50">Stories coming soon.</p>
-            </div>
-          )}
+          <StoriesPageClient stories={sortedStories} />
         </div>
       </section>
     </main>

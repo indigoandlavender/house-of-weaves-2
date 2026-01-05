@@ -43,7 +43,7 @@ export default function Header({ transparent = false }: HeaderProps) {
         <nav className="hidden md:flex items-center gap-8">
           <Link 
             href="/stories" 
-            className={`text-sm tracking-wide transition-colors ${
+            className={`text-meta uppercase tracking-extra-wide transition-colors ${
               isTransparent ? 'text-white/90 hover:text-white' : 'text-foreground/70 hover:text-foreground'
             }`}
           >
@@ -51,7 +51,7 @@ export default function Header({ transparent = false }: HeaderProps) {
           </Link>
           <Link 
             href="/about" 
-            className={`text-sm tracking-wide transition-colors ${
+            className={`text-meta uppercase tracking-extra-wide transition-colors ${
               isTransparent ? 'text-white/90 hover:text-white' : 'text-foreground/70 hover:text-foreground'
             }`}
           >
@@ -59,7 +59,7 @@ export default function Header({ transparent = false }: HeaderProps) {
           </Link>
           <Link 
             href="/contact" 
-            className={`text-sm tracking-wide transition-colors ${
+            className={`text-meta uppercase tracking-extra-wide transition-colors ${
               isTransparent ? 'text-white/90 hover:text-white' : 'text-foreground/70 hover:text-foreground'
             }`}
           >
@@ -84,21 +84,21 @@ export default function Header({ transparent = false }: HeaderProps) {
         <nav className="md:hidden bg-cream border-t border-foreground/10 px-6 py-6 space-y-4">
           <Link 
             href="/stories" 
-            className="block text-lg"
+            className="block text-meta uppercase tracking-extra-wide"
             onClick={() => setMenuOpen(false)}
           >
             Stories
           </Link>
           <Link 
             href="/about" 
-            className="block text-lg"
+            className="block text-meta uppercase tracking-extra-wide"
             onClick={() => setMenuOpen(false)}
           >
             About
           </Link>
           <Link 
             href="/contact" 
-            className="block text-lg"
+            className="block text-meta uppercase tracking-extra-wide"
             onClick={() => setMenuOpen(false)}
           >
             Contact
